@@ -1,9 +1,8 @@
-import './App.css'
-
+import Nav from './componentes/Nav'
 function App() {
-  return(
-    <div></div>
-  )
+  return <div>
+    <Nav/>
+  </div>;
 }
 
-export default App
+export default App;

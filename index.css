@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: 'Neue Haas Grotesk';
+    src: url('./src/assets/NeueHaasGrotTextRound-55Roman-Trial.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+
+}
+
+
+
