@@ -1,7 +1,8 @@
-import Nav from './componentes/Nav'
+
+import Home from './componentes/Home'
 function App() {
   return <div>
-    <Nav/>
+    <Home/>
   </div>;
 }
 
