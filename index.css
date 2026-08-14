@@ -2,13 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-    font-family: 'Neue Haas Grotesk';
-    src: url('./src/assets/NeueHaasGrotTextRound-55Roman-Trial.otf') format('opentype');
-    font-weight: 400;
-    font-style: normal;
-
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+::-webkit-scrollbar-thumb {
+  background: #333333;
+  border-radius: 10px;
 }
 
-
-
+@font-face {
+  font-family: "Neue Haas Grotesk";
+  src: url("./src/assets/NeueHaasGrotTextRound-55Roman-Trial.otf")
+    format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}

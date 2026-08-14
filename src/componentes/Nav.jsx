@@ -1,7 +1,13 @@
 import { ListSortAscending, Search, ShoppingCart, User } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 function BarraNav() {
+  const navigate = useNavigate();
+  const bestClick = () => {
+    navigate("/best");
+    console.log("clicando funcionando");
+  };
   return (
-    <div className="flex items-center bg-loja-card w-full rounded-sm p-6 my-0 justify-between">
+    <div className=" border-red-800 flex items-center bg-loja-card w-full rounded-sm p-6 my-0 justify-between">
       <h1 className="font-loja text-3xl text-loja-texto">NOMEDALOJA</h1>
       {/* catalogo */}
       <button className="flex gap-4 break-words w-[12%] font-loja text-loja-texto border rounded-full p-2 hover:bg-loja-destaque hover:text-loja-fundo">
@@ -10,7 +16,10 @@ function BarraNav() {
       </button>
       <div className="flex gap-3 items-center">
         {/* mais vendidos */}
-        <button className="text-loja-texto hover:text-loja-navtexto">
+        <button
+          onClick={bestClick}
+          className="text-loja-texto hover:text-loja-navtexto"
+        >
           Mais-Vendidos
         </button>
         {/* Oferta */}

@@ -5,7 +5,7 @@ export default {
     extend: {
       colors: {
         loja: {
-           fundo: "#080808",
+           fundo: "#0D0D0D",
            card: "#18181c",
            destaque:"#dfe31d",
            texto: "#ffffff",
