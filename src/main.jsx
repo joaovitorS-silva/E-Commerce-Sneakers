@@ -4,20 +4,19 @@ import App from "./App.jsx";
 import "/index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import Layout from "./componentes/Layout.jsx"
-import Home from "./componentes/Home.jsx"
-import CardProduto from "./componentes/cardProduto.jsx";
+import Layout from "./pages/Layout.jsx";
+import Home from "./pages/Home.jsx";
+import BestSellers from "./pages/BestSellers.jsx";
 
 const rota = createBrowserRouter([
-
   {
     path: "/",
-    element: <Layout/>,
+    element: <Layout />,
     children: [
-      {index: true, element: <Home/>},
-      {path: "best", element: <CardProduto/>}
-    ]
-  }
+      { index: true, element: <Home /> },
+      { path: "best", element: <BestSellers /> },
+    ],
+  },
 ]);
 createRoot(document.getElementById("root")).render(
   <StrictMode>
