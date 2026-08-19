@@ -1,6 +1,6 @@
 import pc from "/src/assets/pc.png";
 import CardProduto from "../componentes/cardProduto";
-import { SquareCheckBig ,SquareDashed, SquareOff } from "lucide-react";
+import { SquareCheckBig, SquareDashed, CircleX } from "lucide-react";
 import { useState } from "react";
 function BestSellers() {
   const produtos = [
@@ -51,19 +51,31 @@ function BestSellers() {
         : [...estadoAnterior, marca],
     );
   }
-
   return (
     <section className="  bg-[#0D0D0D] min-h-screen px-4 py-8 sm:px-6 lg:px-8">
       <div className=" flex ">
         <div className="w-64 shrink-0 p-6">
-          <h1 className="text-4xl text-center ">BESTSELLERS</h1>
+          <h1 className="text-4xl text-center">BESTSELLERS</h1>
+          <ul className="flex flex-wrap gap-2 mt-4">
+            {marcarsSelecionada.map((marca) => (
+              <li
+                key={marca}
+                className="text-white p-2 border rounded-2xl flex items-center gap-2"
+              >
+                {marca}
+                <button onClick={() => OncheckBox(marca)}>
+                  <CircleX size={16} />
+                </button>
+              </li>
+            ))}
+          </ul>
           <h2 className="text-white text-3xl mt-14">brand</h2>
           <ul className=" flex flex-col mt-7 gap-4 text-white">
             {Marcas.map((marca) => (
               <li key={marca} className="flex gap-3">
                 <button type="button" onClick={() => OncheckBox(marca)}>
                   {marcarsSelecionada.includes(marca) ? (
-                    <SquareOff />
+                    <SquareCheckBig />
                   ) : (
                     <SquareDashed />
                   )}
