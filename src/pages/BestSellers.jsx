@@ -1,7 +1,14 @@
 import pc from "/src/assets/pc.png";
 import CardProduto from "../componentes/cardProduto";
-import { SquareCheckBig, SquareDashed, CircleX } from "lucide-react";
+import {
+  SquareCheckBig,
+  SquareDashed,
+  CircleX,
+  ChevronUp,
+  ChevronDown,
+} from "lucide-react";
 import { useState } from "react";
+
 function BestSellers() {
   const produtos = [
     {
@@ -32,18 +39,19 @@ function BestSellers() {
       imagem: pc,
     },
     {
-      id: 1,
-      nome: "teclado",
-      marca: "redragon",
-      preco: 200.99,
-      precoOriginal: 300.99,
+      id: 4,
+      nome: "mouse",
+      marca: "smeg",
+      preco: 390.99,
+      precoOriginal: 410.99,
       desconto: 10,
       imagem: pc,
     },
   ];
-  const Marcas = ["apple", "samsung", "smeg", "asus"];
+  const Marcas = ["apple", "samsung", "smeg", "asus", "redragon"];
   const [marcarsSelecionada, setmarcarsSelecionadas] = useState([]);
-
+  const [PrecoMax, setPrecoMax] = useState(9999);
+  const [botaoView, setbotaoView] = useState(true);
   function OncheckBox(marca) {
     setmarcarsSelecionadas((estadoAnterior) =>
       estadoAnterior.includes(marca)
@@ -51,6 +59,45 @@ function BestSellers() {
         : [...estadoAnterior, marca],
     );
   }
+  function Onfilter() {
+    const ProdutosFiltrados = produtos.filter(
+      (produto) =>
+        (marcarsSelecionada.length === 0 ||
+          marcarsSelecionada.includes(produto.marca)) &&
+        PrecoMax >= produto.preco,
+    );
+
+    return ProdutosFiltrados.length === 0 ? (
+      <p className="text-white text-xl col-span-full text-center">
+        nenhum bagulho encontrdijasdoasijdoasijdaosijdoiado
+      </p>
+    ) : (
+      ProdutosFiltrados.map((produto) => (
+        <CardProduto key={produto.id} produto={produto} />
+      ))
+    );
+  }
+  function botaoViewOn() {
+    return botaoView === true ? (
+      <ul className=" flex flex-col mt-7 gap-4 text-white">
+        {Marcas.map((marca) => (
+          <li key={marca} className="flex gap-10">
+            <button type="button" onClick={() => OncheckBox(marca)}>
+              {marcarsSelecionada.includes(marca) ? (
+                <SquareCheckBig />
+              ) : (
+                <SquareDashed />
+              )}
+            </button>
+            {marca}
+          </li>
+        ))}
+      </ul>
+    ) : (
+      ""
+    );
+  }
+
   return (
     <section className="  bg-[#0D0D0D] min-h-screen px-4 py-8 sm:px-6 lg:px-8">
       <div className=" flex ">
@@ -69,26 +116,26 @@ function BestSellers() {
               </li>
             ))}
           </ul>
-          <h2 className="text-white text-3xl mt-14">brand</h2>
-          <ul className=" flex flex-col mt-7 gap-4 text-white">
-            {Marcas.map((marca) => (
-              <li key={marca} className="flex gap-3">
-                <button type="button" onClick={() => OncheckBox(marca)}>
-                  {marcarsSelecionada.includes(marca) ? (
-                    <SquareCheckBig />
-                  ) : (
-                    <SquareDashed />
-                  )}
-                </button>
-                {marca}
-              </li>
-            ))}
-          </ul>
+          <input
+            type="range"
+            min="0"
+            max="9999"
+            onChange={(e) => setPrecoMax(Number(e.target.value))}
+          />{" "}
+          <p>{PrecoMax}</p>
+          <div className="flex items-center">
+            <h2 className=" text-white  border-white text-xl mt-14">brand</h2>
+            <button
+              className="ml-auto mt-14 p-1 rounded-full border text-white"
+              onClick={() => setbotaoView(!botaoView)}
+            >
+              {botaoView === true ? <ChevronUp /> : <ChevronDown />}
+            </button>
+          </div>
+          {botaoViewOn()}
         </div>
         <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 p-6">
-          {produtos.map((produto) => (
-            <CardProduto key={produto.id} produto={produto} />
-          ))}
+          {Onfilter()}
         </div>
       </div>
     </section>
