@@ -6,9 +6,12 @@ function BarraNav() {
     navigate("/best");
     console.log("clicando funcionando");
   };
+  function BackPage (){
+     navigate (-1)
+  }
   return (
     <div className=" border-red-800 flex items-center bg-loja-card w-full rounded-sm p-6 my-0 justify-between">
-      <h1 className="font-loja text-3xl text-loja-texto">NOMEDALOJA</h1>
+      <button className="font-loja text-3xl text-loja-texto" onClick={() =>BackPage()}>NOMEDALOJA</button>
       {/* catalogo */}
       <button className="flex gap-4 break-words w-[12%] font-loja text-loja-texto border rounded-full p-2 hover:bg-loja-destaque hover:text-loja-fundo">
         <ListSortAscending />
@@ -21,10 +24,6 @@ function BarraNav() {
           className="text-loja-texto hover:text-loja-navtexto"
         >
           Mais-Vendidos
-        </button>
-        {/* Oferta */}
-        <button className="text-loja-texto hover:text-loja-navtexto">
-          Oferta
         </button>
         {/* novidades */}
         <button className="text-loja-texto hover:text-loja-navtexto">

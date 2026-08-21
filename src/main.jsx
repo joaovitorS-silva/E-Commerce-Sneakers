@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./pages/Layout.jsx";
 import Home from "./pages/Home.jsx";
 import BestSellers from "./pages/BestSellers.jsx";
+import Carrinho from "./pages/Carrinho.jsx";
 
 const rota = createBrowserRouter([
   {
@@ -14,6 +15,7 @@ const rota = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "best", element: <BestSellers /> },
+      {path:"carrinho", element: <Carrinho/> }
     ],
   },
 ]);

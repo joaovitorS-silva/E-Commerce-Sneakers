@@ -1,3 +1,5 @@
+
+
 function CardProduto({ produto }) {
   return (
     <article className=" rounded-2xl bg-[#1E1E1E] p-4 text-white shadow-lg shadow-black/30 transition-transform duration-200 hover:-translate-y-1">
@@ -24,7 +26,7 @@ function CardProduto({ produto }) {
             R$ {produto.preco.toFixed(2)}
           </span>
           <span className="text-sm text-gray-400 line-through">
-            R$ {produto.precoOriginal.toFixed(2)}
+            R$ {produto.preco.toFixed(2)}
           </span>
         </div>
       </div>

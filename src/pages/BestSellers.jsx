@@ -7,51 +7,17 @@ import {
   ChevronUp,
   ChevronDown,
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function BestSellers() {
-  const produtos = [
-    {
-      id: 1,
-      nome: "notebook",
-      marca: "asus",
-      preco: 967.86,
-      precoOriginal: 1026.66,
-      desconto: 15,
-      imagem: pc,
-    },
-    {
-      id: 2,
-      nome: "iphone 13",
-      marca: "apple",
-      preco: 2005.86,
-      precoOriginal: 2067.66,
-      desconto: 5,
-      imagem: pc,
-    },
-    {
-      id: 3,
-      nome: "teclado",
-      marca: "redragon",
-      preco: 200.99,
-      precoOriginal: 300.99,
-      desconto: 10,
-      imagem: pc,
-    },
-    {
-      id: 4,
-      nome: "mouse",
-      marca: "smeg",
-      preco: 390.99,
-      precoOriginal: 410.99,
-      desconto: 10,
-      imagem: pc,
-    },
-  ];
   const Marcas = ["apple", "samsung", "smeg", "asus", "redragon"];
   const [marcarsSelecionada, setmarcarsSelecionadas] = useState([]);
   const [PrecoMax, setPrecoMax] = useState(9999);
   const [botaoView, setbotaoView] = useState(true);
+
+  const [produtos, setprodutos] = useState([]);
+  const UrlApi = "https://dummyjson.com/products/category/smartphones";
+
   function OncheckBox(marca) {
     setmarcarsSelecionadas((estadoAnterior) =>
       estadoAnterior.includes(marca)
@@ -78,25 +44,49 @@ function BestSellers() {
     );
   }
   function botaoViewOn() {
-    return botaoView === true ? (
-      <ul className=" flex flex-col mt-7 gap-4 text-white">
-        {Marcas.map((marca) => (
-          <li key={marca} className="flex gap-10">
-            <button type="button" onClick={() => OncheckBox(marca)}>
-              {marcarsSelecionada.includes(marca) ? (
-                <SquareCheckBig />
-              ) : (
-                <SquareDashed />
-              )}
-            </button>
-            {marca}
-          </li>
-        ))}
-      </ul>
-    ) : (
-      ""
+    return (
+      <div
+        className={`overflow-hidden transition-all duration-300 ease-in-out ${
+          botaoView
+            ? "mt-7 max-h-96 translate-y-0 opacity-100"
+            : "mt-0 max-h-0 -translate-y-2 opacity-0"
+        }`}
+      >
+        <ul className="flex flex-col gap-4 text-white">
+          {Marcas.map((marca) => (
+            <li key={marca} className="flex gap-10">
+              <button type="button" onClick={() => OncheckBox(marca)}>
+                {marcarsSelecionada.includes(marca) ? (
+                  <SquareCheckBig />
+                ) : (
+                  <SquareDashed />
+                )}
+              </button>
+              {marca}
+            </li>
+          ))}
+        </ul>
+      </div>
     );
   }
+
+  useEffect(() => {
+    fetch(UrlApi)
+      .then(function (respostaAPI) {
+        return respostaAPI.json();
+      })
+      .then(function (resultadoApi) {
+        const NomesCorrretos = resultadoApi.products.map((item) => ({
+          id: item.id,
+          nome: item.title,
+          preco: item.price,
+          desconto: item.discountPercentage,
+          marca: item.brand,
+          imagem: item.thumbnail,
+        }));
+        setprodutos(NomesCorrretos);
+      });
+  }, []);
 
   return (
     <section className="  bg-[#0D0D0D] min-h-screen px-4 py-8 sm:px-6 lg:px-8">
@@ -116,30 +106,37 @@ function BestSellers() {
               </li>
             ))}
           </ul>
-          <input
-            type="range"
-            min="0"
-            max="9999"
-            onChange={(e) => setPrecoMax(Number(e.target.value))}
-          />{" "}
-          <p>{PrecoMax}</p>
-          <div className="flex items-center">
-            <h2 className=" text-white  border-white text-xl mt-14">brand</h2>
-            <button
-              className="ml-auto mt-14 p-1 rounded-full border text-white"
-              onClick={() => setbotaoView(!botaoView)}
-            >
-              {botaoView === true ? <ChevronUp /> : <ChevronDown />}
-            </button>
+          <div className="flex flex-col">
+            <h3 className="text-3xl mt-3 text-white  font-semibold">Price</h3>
+            <h4 className="text-xs mt-5 text-gray-500">Intervalo de preço</h4>
+            <input
+              className="range-preco"
+              type="range"
+              min="0"
+              max="9999"
+              onChange={(e) => setPrecoMax(Number(e.target.value))}
+            />{" "}
+            <p className="text-white text-xs">{PrecoMax}</p>
+            <div className="flex items-center">
+              <h2 className=" text-white  border-white text-xl mt-14">brand</h2>
+              <button
+                /*transição */
+                className={`ml-auto mt-14 rounded-full border p-1 text-white transition-transform duration-300 ${
+                  botaoView ? "rotate-0" : "rotate-180"
+                }`}
+                onClick={() => setbotaoView(!botaoView)}
+              >
+                {botaoView === true ? <ChevronUp /> : <ChevronDown />}
+              </button>
+            </div>
           </div>
           {botaoViewOn()}
         </div>
-        <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 p-6">
+        <div className="flex-1 delay-150 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 p-6">
           {Onfilter()}
         </div>
       </div>
     </section>
   );
 }
-
 export default BestSellers;
