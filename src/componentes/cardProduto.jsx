@@ -26,7 +26,7 @@ function CardProduto({ produto }) {
             R$ {produto.preco.toFixed(2)}
           </span>
           <span className="text-sm text-gray-400 line-through">
-            R$ {produto.preco.toFixed(2)}
+            R$ {produto.precoOriginal.toFixed(2)}
           </span>
         </div>
       </div>
