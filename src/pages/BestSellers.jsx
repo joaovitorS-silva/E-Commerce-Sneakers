@@ -1,4 +1,3 @@
-import pc from "/src/assets/pc.png";
 import CardProduto from "../componentes/cardProduto";
 import {
   SquareCheckBig,
@@ -7,15 +6,15 @@ import {
   ChevronUp,
   ChevronDown,
 } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function BestSellers() {
-  const Marcas = ["apple", "samsung", "smeg", "asus", "redragon"];
   const [marcarsSelecionada, setmarcarsSelecionadas] = useState([]);
-  const [PrecoMax, setPrecoMax] = useState(9999);
+  const [PrecoMax, setPrecoMax] = useState(2000);
   const [botaoView, setbotaoView] = useState(true);
-
+  const [ArrayMarcas, setArrayMarcas] = useState([]);
   const [produtos, setprodutos] = useState([]);
+
   const UrlApi = "https://dummyjson.com/products/category/smartphones";
 
   function OncheckBox(marca) {
@@ -29,13 +28,13 @@ function BestSellers() {
     const ProdutosFiltrados = produtos.filter(
       (produto) =>
         (marcarsSelecionada.length === 0 ||
-          marcarsSelecionada.includes(produto.marca)) &&
+          marcarsSelecionada.includes(produto.marca.toLowerCase())) &&
         PrecoMax >= produto.preco,
     );
 
     return ProdutosFiltrados.length === 0 ? (
       <p className="text-white text-xl col-span-full text-center">
-        nenhum bagulho encontrdijasdoasijdoasijdaosijdoiado
+        nenhum bagulho
       </p>
     ) : (
       ProdutosFiltrados.map((produto) => (
@@ -43,6 +42,7 @@ function BestSellers() {
       ))
     );
   }
+
   function botaoViewOn() {
     return (
       <div
@@ -53,7 +53,7 @@ function BestSellers() {
         }`}
       >
         <ul className="flex flex-col gap-4 text-white">
-          {Marcas.map((marca) => (
+          {ArrayMarcas.map((marca) => (
             <li key={marca} className="flex gap-10">
               <button type="button" onClick={() => OncheckBox(marca)}>
                 {marcarsSelecionada.includes(marca) ? (
@@ -83,8 +83,18 @@ function BestSellers() {
           desconto: item.discountPercentage,
           marca: item.brand,
           imagem: item.thumbnail,
+          precoOriginal: item.price / (1 - item.discountPercentage / 100),
+          descricao: item.description
+          //lembra de pegar o rating (avalição do produto)
+          //pegar o estoque tambem
         }));
+
+        const MarcasBrutas = NomesCorrretos.map((produto) =>
+          produto.marca.toLowerCase(),
+        );
+        const MarcasUnicas = [...new Set(MarcasBrutas)]; // esse tipo de lista "set" faz com que os nomes da listas nao se repitao
         setprodutos(NomesCorrretos);
+        setArrayMarcas(MarcasUnicas);
       });
   }, []);
 
@@ -132,7 +142,7 @@ function BestSellers() {
           </div>
           {botaoViewOn()}
         </div>
-        <div className="flex-1 delay-150 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 p-6">
+        <div className="flex flex-1 flex-wrap content-start gap-6 p-6">
           {Onfilter()}
         </div>
       </div>

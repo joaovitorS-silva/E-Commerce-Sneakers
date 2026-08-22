@@ -4,10 +4,14 @@ function BarraNav() {
   const navigate = useNavigate();
   const bestClick = () => {
     navigate("/best");
-    console.log("clicando funcionando");
   };
   function BackPage (){
      navigate (-1)
+  }
+
+  const navigateCarro = useNavigate()
+  const NavCarrinho = () =>{
+    navigate("/carrinho")
   }
   return (
     <div className=" border-red-800 flex items-center bg-loja-card w-full rounded-sm p-6 my-0 justify-between">
@@ -36,7 +40,7 @@ function BarraNav() {
           <Search />
         </button>
         {/* carrinho */}
-        <button className="flex items-center text-loja-texto ">
+        <button onClick={NavCarrinho} className="flex items-center text-loja-texto ">
           <ShoppingCart />
         </button>
         {/* Login */}
