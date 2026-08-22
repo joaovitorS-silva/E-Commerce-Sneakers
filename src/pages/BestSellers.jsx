@@ -1,4 +1,3 @@
-import pc from "/src/assets/pc.png";
 import CardProduto from "../componentes/cardProduto";
 import {
   SquareCheckBig,
@@ -7,7 +6,7 @@ import {
   ChevronUp,
   ChevronDown,
 } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function BestSellers() {
   const [marcarsSelecionada, setmarcarsSelecionadas] = useState([]);
@@ -15,6 +14,7 @@ function BestSellers() {
   const [botaoView, setbotaoView] = useState(true);
   const [ArrayMarcas, setArrayMarcas] = useState([]);
   const [produtos, setprodutos] = useState([]);
+
   const UrlApi = "https://dummyjson.com/products/category/smartphones";
 
   function OncheckBox(marca) {
@@ -34,7 +34,7 @@ function BestSellers() {
 
     return ProdutosFiltrados.length === 0 ? (
       <p className="text-white text-xl col-span-full text-center">
-        nenhum bagulho 
+        nenhum bagulho
       </p>
     ) : (
       ProdutosFiltrados.map((produto) => (
@@ -83,13 +83,16 @@ function BestSellers() {
           desconto: item.discountPercentage,
           marca: item.brand,
           imagem: item.thumbnail,
-          precoOriginal: item.price / (1 - item.discountPercentage  / 100)
+          precoOriginal: item.price / (1 - item.discountPercentage / 100),
+          descricao: item.description
+          //lembra de pegar o rating (avalição do produto)
+          //pegar o estoque tambem
         }));
 
         const MarcasBrutas = NomesCorrretos.map((produto) =>
           produto.marca.toLowerCase(),
         );
-        const MarcasUnicas = [... new Set(MarcasBrutas)] // esse tipo de lista "set" faz com que os nomes da listas nao se repitao
+        const MarcasUnicas = [...new Set(MarcasBrutas)]; // esse tipo de lista "set" faz com que os nomes da listas nao se repitao
         setprodutos(NomesCorrretos);
         setArrayMarcas(MarcasUnicas);
       });
@@ -139,7 +142,7 @@ function BestSellers() {
           </div>
           {botaoViewOn()}
         </div>
-        <div className="flex-1 delay-150 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 p-6">
+        <div className="flex flex-1 flex-wrap content-start gap-6 p-6">
           {Onfilter()}
         </div>
       </div>

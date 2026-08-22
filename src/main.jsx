@@ -7,6 +7,8 @@ import Layout from "./pages/Layout.jsx";
 import Home from "./pages/Home.jsx";
 import BestSellers from "./pages/BestSellers.jsx";
 import Carrinho from "./pages/Carrinho.jsx";
+import CardCarrinho from "./componentes/CardCarrinho.jsx";
+import { CarrinhoProvider } from "../context/CarrinhoContext.jsx";
 
 const rota = createBrowserRouter([
   {
@@ -15,12 +17,14 @@ const rota = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "best", element: <BestSellers /> },
-      {path:"carrinho", element: <Carrinho/> }
+      { path: "carrinho", element: <Carrinho /> },
     ],
   },
 ]);
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={rota}></RouterProvider>
+    <CarrinhoProvider>
+      <RouterProvider router={rota}></RouterProvider>
+    </CarrinhoProvider>
   </StrictMode>,
 );
