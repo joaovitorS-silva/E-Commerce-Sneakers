@@ -19,7 +19,9 @@ const rota = createBrowserRouter([
       { path: "best", element: <BestSellers /> },
       { path: "carrinho", element: <Carrinho /> },
     ],
+    
   },
+  
 ]);
 createRoot(document.getElementById("root")).render(
   <StrictMode>
