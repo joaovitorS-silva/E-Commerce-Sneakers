@@ -1,7 +1,7 @@
 import { ShoppingCart, Star, HeartPlus } from "lucide-react";
 import { useCarrinho } from "../../context/CarrinhoContext";
 function CardProduto({ produto }) {
-  const { AdicionarAoCarrinho, CarrinhoVerde, CarrinhoArray} = useCarrinho();
+  const { CarrinhoVerde } = useCarrinho();
   return (
     <article className="  rounded-2xl bg-[#1E1E1E] p-4 text-white shadow-2xl shadow-black/30 transition-transform duration-200 hover:-translate-y-2 ">
       {" "}
@@ -13,12 +13,16 @@ function CardProduto({ produto }) {
           Sale {produto.desconto}%
         </div>
       </div>
-      <button className="mt-4 relative cursor-pointer space-y-2">
-        <div>
-          <Star/>
-          {CarrinhoVerde(produto)}
-          <HeartPlus className="absolute right-8 top-0" />
+      <button className="mt-4 block w-full cursor-pointer space-y-2 text-left">
+        <div className="relative flex items-center">
+          <Star />
+          <div className="absolute right-0 top-0 flex items-center gap-2">
+             <HeartPlus />
+            {CarrinhoVerde(produto)}
+         
+          </div>
         </div>
+
         <img
           className="  h-56 w-full object-cover sm:h-72"
           src={produto.imagem}

@@ -41,10 +41,8 @@ function CardCarrinho({ produto }) {
             </div>
           </div>
         </div>
-        <div>
-          dasçkdjaskjd
-          <AbaCompra produto={produto} />
-        </div>
+        <div>dasçkdjaskjd</div>
+        <AbaCompra produto={produto} />
       </article>
     </div>
   );

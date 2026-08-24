@@ -21,6 +21,10 @@ function Carrinho() {
       ))
     );
   }
-  return <div>{VERIFICAR_array()}</div>;
+
+
+  return <div>
+  <div>{VERIFICAR_array()}</div>
+  </div>;
 }
 export default Carrinho;

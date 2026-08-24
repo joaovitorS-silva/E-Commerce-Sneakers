@@ -14,10 +14,10 @@ export function CarrinhoProvider({ children }) {
       (itemDoCarrinho) => itemDoCarrinho.id === produto.id,
       console.log(produto.id,)
     ) ? (
-      <ShoppingCart color="#4ade80" className=" absolute right-0 top-0 " />
+      <ShoppingCart color="#4ade80" />
    
     ) : (
-      <ShoppingCart className="absolute right-0 top-0" onClick={()=> AdicionarAoCarrinho(produto)} />
+      <ShoppingCart onClick={() => AdicionarAoCarrinho(produto)} />
     );
   }
 
