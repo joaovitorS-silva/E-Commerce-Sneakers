@@ -7,6 +7,7 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 function BestSellers() {
   const [marcarsSelecionada, setmarcarsSelecionadas] = useState([]);
@@ -14,8 +15,10 @@ function BestSellers() {
   const [botaoView, setbotaoView] = useState(true);
   const [ArrayMarcas, setArrayMarcas] = useState([]);
   const [produtos, setprodutos] = useState([]);
-
+  const [searchParams] = useSearchParams();
   const UrlApi = "https://dummyjson.com/products/category/smartphones";
+
+  const busca = searchParams.get("busca") || "";
 
   function OncheckBox(marca) {
     setmarcarsSelecionadas((estadoAnterior) =>
@@ -27,6 +30,7 @@ function BestSellers() {
   function Onfilter() {
     const ProdutosFiltrados = produtos.filter(
       (produto) =>
+        produto.nome.toLowerCase().includes(busca.toLowerCase()) &&
         (marcarsSelecionada.length === 0 ||
           marcarsSelecionada.includes(produto.marca.toLowerCase())) &&
         PrecoMax >= produto.preco,
@@ -85,8 +89,9 @@ function BestSellers() {
           imagem: item.thumbnail,
           precoOriginal: item.price / (1 - item.discountPercentage / 100),
           descricao: item.description,
-          carroselImg: item.images
-          //lembra de pegar o rating (avalição do produto)
+          carroselImg: item.images,
+          avaliacao: item.rating,
+
           //pegar o estoque tambem
         }));
 

@@ -1,21 +1,36 @@
 import { ListSortAscending, Search, ShoppingCart, User } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 function BarraNav() {
+  const [pesquisa, setpesquisa] = useState("");
+  const [pesquisaAberta, setPesquisaAberta] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const bestClick = () => {
     navigate("/best");
   };
-  function BackPage (){
-     navigate (-1)
+  function BackPage() {
+    navigate(-1);
   }
 
-  const navigateCarro = useNavigate()
-  const NavCarrinho = () =>{
-    navigate("/carrinho")
+  const navigateCarro = useNavigate();
+  const NavCarrinho = () => {
+    navigate("/carrinho");
+  };
+  function pesquisar(event) {
+    const texto = event.target.value;
+    setpesquisa(texto);
+
+    setSearchParams({ busca: texto });
   }
   return (
     <div className=" border-red-800 flex items-center bg-loja-card w-full rounded-sm p-6 my-0 justify-between">
-      <button className="font-loja text-3xl text-loja-texto" onClick={() =>BackPage()}>NOMEDALOJA</button>
+      <button
+        className="font-loja text-3xl text-loja-texto"
+        onClick={() => BackPage()}
+      >
+        NOMEDALOJA
+      </button>
       {/* catalogo */}
       <button className="flex gap-4 break-words w-[12%] font-loja text-loja-texto border rounded-full p-2 hover:bg-loja-destaque hover:text-loja-fundo">
         <ListSortAscending />
@@ -36,11 +51,26 @@ function BarraNav() {
       </div>
       <div className="flex gap-5">
         {/* buscar */}
-        <button className="text-loja-texto">
+        {pesquisaAberta ? (
+          <input
+            type="text"
+            placeholder="pesquise produtos"
+            className="p-2 rounded-lg text-orange-700 transition-transform duration-150"
+            value={pesquisa}
+            onChange={pesquisar}
+          />
+        ) : null}
+        <button
+          onClick={() => setPesquisaAberta(true)}
+          className="text-loja-texto transition-transform duration-150"
+        >
           <Search />
         </button>
         {/* carrinho */}
-        <button onClick={NavCarrinho} className="flex items-center text-loja-texto ">
+        <button
+          onClick={NavCarrinho}
+          className="flex items-center text-loja-texto "
+        >
           <ShoppingCart />
         </button>
         {/* Login */}

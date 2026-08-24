@@ -1,25 +1,29 @@
 import { ShoppingCart, Star, HeartPlus } from "lucide-react";
 import { useCarrinho } from "../../context/CarrinhoContext";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 function CardProduto({ produto }) {
   const { CarrinhoVerde } = useCarrinho();
+  const navigate = useNavigate();
+  function OnDetailClick(produto) {
+    const query = new URLSearchParams();
+    query.set("id", produto.id);
+    navigate(`/produto?${query.toString()}`);
+    console.log("funcinou????");
+  }
+
   return (
     <article className="  rounded-2xl bg-[#1E1E1E] p-4 text-white shadow-2xl shadow-black/30 transition-transform duration-200 hover:-translate-y-2 ">
-      {" "}
-      {
-        //hover:scale-105??? talvez
-      }
-      <div className="relative overflow-hidden rounded-xl bg-[#2A2A2A]">
-        <div className="absolute left-3 top-3 rounded-md bg-[#dfe31d] px-2 py-1 text-xs font-bold text-black">
-          Sale {produto.desconto}%
-        </div>
-      </div>
-      <button className="mt-4 block w-full cursor-pointer space-y-2 text-left">
+      <div className="relative overflow-hidden rounded-xl bg-[#2A2A2A]"></div>
+      <button
+        onClick={() => OnDetailClick(produto)}
+        className="mt-4 block w-full cursor-pointer space-y-2 text-left"
+      >
         <div className="relative flex items-center">
           <Star />
           <div className="absolute right-0 top-0 flex items-center gap-2">
-             <HeartPlus />
+            <HeartPlus />
             {CarrinhoVerde(produto)}
-         
           </div>
         </div>
 
