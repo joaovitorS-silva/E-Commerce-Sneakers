@@ -58,7 +58,7 @@ function AbaCompra({ produto }) {
         </p>
       </div>
 
-      {pagamentoAberto && (
+      {pagamentoAberto ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
           <div className="relative w-full max-w-md rounded-md bg-zinc-800 p-8 text-center text-white shadow-xl">
             <button
@@ -75,7 +75,7 @@ function AbaCompra({ produto }) {
             </div>
           </div>
         </div>
-      )}
+      ) : null}
     </aside>
   );
 }

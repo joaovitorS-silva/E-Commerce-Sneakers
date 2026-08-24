@@ -9,7 +9,7 @@ import BestSellers from "./pages/BestSellers.jsx";
 import Carrinho from "./pages/Carrinho.jsx";
 import CardCarrinho from "./componentes/CardCarrinho.jsx";
 import { CarrinhoProvider } from "../context/CarrinhoContext.jsx";
-
+import ProdutoTela from "./pages/ProdutoTela.jsx";
 const rota = createBrowserRouter([
   {
     path: "/",
@@ -18,10 +18,9 @@ const rota = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: "best", element: <BestSellers /> },
       { path: "carrinho", element: <Carrinho /> },
+      { path: "produto", element: <ProdutoTela /> },
     ],
-    
   },
-  
 ]);
 createRoot(document.getElementById("root")).render(
   <StrictMode>

@@ -1,6 +1,7 @@
 import { ListSortAscending, Search, ShoppingCart, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 function BarraNav() {
+  const []
   const navigate = useNavigate();
   const bestClick = () => {
     navigate("/best");
@@ -12,6 +13,16 @@ function BarraNav() {
   const navigateCarro = useNavigate()
   const NavCarrinho = () =>{
     navigate("/carrinho")
+  }
+
+  function pesquisaOn (){
+    <input 
+    type="text"
+    placeholder="pesquise produtos"
+    className="p-2"
+    onChange={Target.e.value}
+    />
+
   }
   return (
     <div className=" border-red-800 flex items-center bg-loja-card w-full rounded-sm p-6 my-0 justify-between">

@@ -85,8 +85,9 @@ function BestSellers() {
           imagem: item.thumbnail,
           precoOriginal: item.price / (1 - item.discountPercentage / 100),
           descricao: item.description,
-          carroselImg: item.images
-          //lembra de pegar o rating (avalição do produto)
+          carroselImg: item.images,
+          avaliacao: item.rating
+
           //pegar o estoque tambem
         }));
 
