@@ -1,12 +1,13 @@
-import { ArrowLeft, LockKeyhole } from "lucide-react";
+import { useState } from "react";
+import { ArrowLeft, LockKeyhole, X } from "lucide-react";
 
 function AbaCompra({ produto }) {
+  const [pagamentoAberto, setPagamentoAberto] = useState(false);
   const preco = Number(produto?.preco) || 0;
   const precoFormatado = preco.toLocaleString("pt-BR", {
     style: "currency",
     currency: "BRL",
   });
-
   return (
     <aside className="w-full shrink-0 rounded-lg border border-zinc-700 bg-zinc-900 p-6 text-white shadow-lg lg:w-80">
       <div className="space-y-5">
@@ -38,7 +39,11 @@ function AbaCompra({ produto }) {
         </div>
 
         <div className="space-y-3">
-          <button className="w-full rounded-md bg-yellow-400 px-4 py-3 font-bold text-zinc-950 transition hover:bg-yellow-300">
+          <button
+            type="button"
+            onClick={() => setPagamentoAberto(true)}
+            className="w-full rounded-md bg-yellow-400 px-4 py-3 font-bold text-zinc-950 transition hover:bg-yellow-300"
+          >
             Continuar para pagamento
           </button>
           <button className="flex w-full items-center justify-center gap-2 rounded-md border border-zinc-600 px-4 py-3 font-semibold text-zinc-200 transition hover:border-zinc-400 hover:text-white">
@@ -52,6 +57,25 @@ function AbaCompra({ produto }) {
           Compra segura
         </p>
       </div>
+
+      {pagamentoAberto && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
+          <div className="relative w-full max-w-md rounded-md bg-zinc-800 p-8 text-center text-white shadow-xl">
+            <button
+              type="button"
+              aria-label="Fechar pagamento"
+              onClick={() => setPagamentoAberto(false)}
+              className="absolute right-3 top-3 rounded-md p-2 text-zinc-400 transition hover:text-white"
+            >
+              <X size={20} />
+            </button>
+            <h2 className="text-xl font-bold">Pagamento</h2>
+            <div className="mx-auto mt-6 flex aspect-square w-48 items-center justify-center rounded-md bg-slate-500 text-sm text-zinc-950">
+              COLOCAR QR AQUI
+            </div>
+          </div>
+        </div>
+      )}
     </aside>
   );
 }
