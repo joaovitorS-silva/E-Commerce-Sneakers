@@ -55,7 +55,7 @@ function BarraNav() {
           <input
             type="text"
             placeholder="pesquise produtos"
-            className="p-2 rounded-lg text-orange-700 transition-transform duration-150"
+            className="p-2 rounded-lg text-orange-700"
             value={pesquisa}
             onChange={pesquisar}
           />
