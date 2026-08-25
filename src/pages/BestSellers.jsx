@@ -77,6 +77,10 @@ function BestSellers() {
   useEffect(() => {
     fetch(UrlApi)
       .then(function (respostaAPI) {
+        if (!respostaAPI.ok){
+          throw new Error("produto nao encontrado");
+          
+        }
         return respostaAPI.json();
       })
       .then(function (resultadoApi) {
@@ -94,7 +98,9 @@ function BestSellers() {
 
           //pegar o estoque tambem
         }));
-
+        if (!produtos){
+          return  <p>Carregando produtos...</p>
+        }
         const MarcasBrutas = NomesCorrretos.map((produto) =>
           produto.marca.toLowerCase(),
         );

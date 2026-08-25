@@ -34,7 +34,6 @@ function ProdutoTela() {
 
   if (!produto) {
     return <p>Carregando produto...</p>;
-    ("");
   }
 
   function mudarIMagem() {

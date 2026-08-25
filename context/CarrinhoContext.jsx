@@ -11,13 +11,17 @@ export function CarrinhoProvider({ children }) {
 
   function CarrinhoVerde(produto) {
     return CarrinhoArray.some(
-      (itemDoCarrinho) => itemDoCarrinho.id === produto.id,
-      console.log(produto.id,)
+      (itemDoCarrinho) => itemDoCarrinho.id === produto.id
     ) ? (
       <ShoppingCart color="#4ade80" />
    
     ) : (
-      <ShoppingCart onClick={() => AdicionarAoCarrinho(produto)} />
+      <ShoppingCart
+        onClick={(evento) => {
+          evento.stopPropagation();
+          AdicionarAoCarrinho(produto);
+        }}
+      />
     );
   }
 

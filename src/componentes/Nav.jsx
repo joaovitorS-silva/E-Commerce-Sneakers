@@ -1,16 +1,20 @@
-import { ListSortAscending, Search, ShoppingCart, User } from "lucide-react";
+import { ListSortAscending, Search, ShoppingCart, User, ChevronRight } from "lucide-react";
 import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 function BarraNav() {
   const [pesquisa, setpesquisa] = useState("");
   const [pesquisaAberta, setPesquisaAberta] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [catalogoON, setcatalogoOFF] = useState(false);
   const navigate = useNavigate();
   const bestClick = () => {
     navigate("/best");
   };
   function BackPage() {
     navigate(-1);
+  }
+  function CatalogoNAv (){
+    navigate("/best")
   }
 
   const navigateCarro = useNavigate();
@@ -32,10 +36,18 @@ function BarraNav() {
         NOMEDALOJA
       </button>
       {/* catalogo */}
-      <button className="flex gap-4 break-words w-[12%] font-loja text-loja-texto border rounded-full p-2 hover:bg-loja-destaque hover:text-loja-fundo">
-        <ListSortAscending />
-        Catalogo
-      </button>
+      <div className="relative">
+        <button
+          onClick={() => setcatalogoOFF(!catalogoON)}
+          className="flex gap-4  items-center font-loja text-loja-texto border rounded-full p-2 hover:bg-loja-destaque hover:text-loja-fundo"
+        >
+          <ListSortAscending />
+          Catalogo
+        </button>
+        {catalogoON ? (
+          <button onClick={() => CatalogoNAv()} className=" flex gap-16 absolute text-white left-0 z-50 mt-2 w-56 rounded-lg bg-loja-card p-4 hover:bg-zinc-600 shadow-lg top-full">Smartphones <ChevronRight /></button>
+        ) : null}
+      </div>
       <div className="flex gap-3 items-center">
         {/* mais vendidos */}
         <button
@@ -43,10 +55,6 @@ function BarraNav() {
           className="text-loja-texto hover:text-loja-navtexto"
         >
           Mais-Vendidos
-        </button>
-        {/* novidades */}
-        <button className="text-loja-texto hover:text-loja-navtexto">
-          Novidades
         </button>
       </div>
       <div className="flex gap-5">
@@ -61,7 +69,7 @@ function BarraNav() {
           />
         ) : null}
         <button
-          onClick={() => setPesquisaAberta(true)}
+          onClick={() => setPesquisaAberta(!pesquisaAberta)}
           className="text-loja-texto transition-transform duration-150"
         >
           <Search />
