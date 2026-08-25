@@ -5,6 +5,7 @@ import {
   CircleX,
   ChevronUp,
   ChevronDown,
+  QrCode,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -95,6 +96,7 @@ function BestSellers() {
           descricao: item.description,
           carroselImg: item.images,
           avaliacao: item.rating,
+          QrCode : item.QrCode
 
           //pegar o estoque tambem
         }));

@@ -71,7 +71,9 @@ function AbaCompra({ produto }) {
             </button>
             <h2 className="text-xl font-bold">Pagamento</h2>
             <div className="mx-auto mt-6 flex aspect-square w-48 items-center justify-center rounded-md bg-slate-500 text-sm text-zinc-950">
-              COLOCAR QR AQUI
+              {produto.QrCode}
+              
+              {"nao estar funcionando, acima"}
             </div>
           </div>
         </div>
