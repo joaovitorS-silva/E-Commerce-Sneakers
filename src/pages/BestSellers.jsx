@@ -5,6 +5,7 @@ import {
   CircleX,
   ChevronUp,
   ChevronDown,
+  QrCode,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -77,6 +78,10 @@ function BestSellers() {
   useEffect(() => {
     fetch(UrlApi)
       .then(function (respostaAPI) {
+        if (!respostaAPI.ok){
+          throw new Error("produto nao encontrado");
+          
+        }
         return respostaAPI.json();
       })
       .then(function (resultadoApi) {
@@ -91,10 +96,13 @@ function BestSellers() {
           descricao: item.description,
           carroselImg: item.images,
           avaliacao: item.rating,
+          QrCode : item.QrCode
 
           //pegar o estoque tambem
         }));
-
+        if (!produtos){
+          return  <p>Carregando produtos...</p>
+        }
         const MarcasBrutas = NomesCorrretos.map((produto) =>
           produto.marca.toLowerCase(),
         );

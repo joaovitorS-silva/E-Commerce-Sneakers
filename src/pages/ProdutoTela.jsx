@@ -8,6 +8,7 @@ function ProdutoTela() {
   const [searchParams] = useSearchParams();
   const [produto, setProduto] = useState(null);
   const [erro, setErro] = useState("");
+  const [PosicaoImagem, setPosicaoImagem] = useState(0);
   const id = searchParams.get("id");
 
   useEffect(() => {
@@ -35,13 +36,21 @@ function ProdutoTela() {
     return <p>Carregando produto...</p>;
   }
 
+  function mudarIMagem() {
+    setPosicaoImagem((posicaoatual) =>
+      posicaoatual === produto.images.length - 1 ? 0 : posicaoatual + 1,
+    );
+  }
   return (
     <div>
       <div className="w-full bg-black">
         <button className="bg-yellow-500 text-black px-3 py-2 rounded-md">
           BestSeller
         </button>
-        <img src={produto.thumbnail} alt={produto.title} />
+        <img src={produto.images[PosicaoImagem]} alt={produto.title} />
+        <button onClick={() => mudarIMagem()} className=" bg-white ">
+          mudar imagem
+        </button>
         <p className="text-zinc-700">{produto.title}</p>
         <h1>{produto.description}</h1>
         <span>

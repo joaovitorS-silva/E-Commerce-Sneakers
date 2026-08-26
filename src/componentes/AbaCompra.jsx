@@ -3,7 +3,7 @@ import { ArrowLeft, LockKeyhole, X } from "lucide-react";
 
 function AbaCompra({ produto }) {
   const [pagamentoAberto, setPagamentoAberto] = useState(false);
-  const preco = Number(produto?.preco) || 0;
+  const preco = Number(produto?.preco * produto.quantidade) || 0;
   const precoFormatado = preco.toLocaleString("pt-BR", {
     style: "currency",
     currency: "BRL",
@@ -71,7 +71,9 @@ function AbaCompra({ produto }) {
             </button>
             <h2 className="text-xl font-bold">Pagamento</h2>
             <div className="mx-auto mt-6 flex aspect-square w-48 items-center justify-center rounded-md bg-slate-500 text-sm text-zinc-950">
-              COLOCAR QR AQUI
+              {produto.QrCode}
+
+              {"nao estar funcionando, acima"}
             </div>
           </div>
         </div>
