@@ -20,13 +20,12 @@ function BarraNav() {
     navigate("/best");
   };
   function BackPage() {
-    navigate(-1);
+    navigate("/");
   }
   function CatalogoNAv() {
     navigate("/best");
   }
 
-  const navigateCarro = useNavigate();
   const NavCarrinho = () => {
     navigate("/carrinho");
   };

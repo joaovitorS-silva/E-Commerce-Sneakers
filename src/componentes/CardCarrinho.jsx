@@ -1,6 +1,9 @@
 import { Handbag, Plus, Minus } from "lucide-react";
 import AbaCompra from "./AbaCompra";
+import { useCarrinho } from "../../context/CarrinhoContext";
 function CardCarrinho({ produto }) {
+  const { aumentarquantidade, dimunuirquantidade, removerCarrinho } =
+    useCarrinho();
   return (
     <div className="flex">
       <article className="m-4 flex w-full flex-col gap-8 rounded-md bg-loja-card p-5 text-white sm:m-8 sm:p-8 lg:m-11 lg:flex-row lg:items-start lg:p-10">
@@ -11,9 +14,18 @@ function CardCarrinho({ produto }) {
               produto e serviço
             </h1>
           </div>
-          <span className="bg-zinc-800">
-            vendido e entregue por <strong> KaBum!</strong>
-          </span>
+          <div className="flex mb-1 justify-between">
+            <span className="  bg-zinc-800">
+              vendido e entregue por <strong> KaBum!</strong>
+            </span>
+            <button
+              onClick={() => removerCarrinho(produto.id)}
+              className="rounded-md p-2 text-red-600 border-3 hover:bg-red-600 hover:text-white "
+            >
+              Remover produto
+            </button>
+          </div>
+
           <hr />
 
           <div className="flex flex-col gap-5 pt-6 sm:flex-row sm:items-center">
@@ -25,11 +37,17 @@ function CardCarrinho({ produto }) {
             <p className="min-w-0 flex-1 break-words">{produto.descricao}</p>
             <div className="flex w-fit items-center gap-6 bg-zinc-800 px-7 py-3">
               <button className=" bg-zinc-800">
-                <Minus className="text-red-600" />
+                <Minus
+                  onClick={() => dimunuirquantidade(produto.id)}
+                  className="text-red-600"
+                />
               </button>
-              <span>2</span>
+              <span>{produto.quantidade}</span>
               <button>
-                <Plus className="text-yellow-500" />
+                <Plus
+                  onClick={() => aumentarquantidade(produto.id)}
+                  className="text-yellow-500"
+                />
               </button>
             </div>
             <div className="flex flex-col sm:min-w-32">
@@ -41,7 +59,6 @@ function CardCarrinho({ produto }) {
             </div>
           </div>
         </div>
-        <div>dasçkdjaskjd</div>
         <AbaCompra produto={produto} />
       </article>
     </div>
