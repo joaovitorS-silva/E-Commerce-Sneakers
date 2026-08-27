@@ -9,6 +9,7 @@ import BestSellers from "./pages/BestSellers.jsx";
 import Carrinho from "./pages/Carrinho.jsx";
 import CardCarrinho from "./componentes/CardCarrinho.jsx";
 import { CarrinhoProvider } from "../context/CarrinhoContext.jsx";
+import { ProdutoProvider } from "../context/ProdutoContext.jsx";
 import ProdutoTela from "./pages/ProdutoTela.jsx";
 const rota = createBrowserRouter([
   {
@@ -25,7 +26,9 @@ const rota = createBrowserRouter([
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <CarrinhoProvider>
-      <RouterProvider router={rota}></RouterProvider>
+      <ProdutoProvider>
+        <RouterProvider router={rota}></RouterProvider>
+      </ProdutoProvider>
     </CarrinhoProvider>
   </StrictMode>,
 );

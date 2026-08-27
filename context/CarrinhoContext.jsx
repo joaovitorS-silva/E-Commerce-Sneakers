@@ -7,6 +7,7 @@ export function CarrinhoProvider({ children }) {
   function AdicionarAoCarrinho(produto) {
     const novoItem = { ...produto, quantidade: 1 };
     setCarrinho((estadoAnterior) => [...estadoAnterior, novoItem]);
+    
   }
 
   function aumentarquantidade(id) {
@@ -40,8 +41,9 @@ export function CarrinhoProvider({ children }) {
     const valortotal = CarrinhoArray.reduce((total,item) =>
     total + item.preco * item.quantidade,0
     )
+    return valortotal;
   }
-}
+
   function CarrinhoVerde(produto) {
     return CarrinhoArray.some(
       (itemDoCarrinho) => itemDoCarrinho.id === produto.id,
@@ -61,11 +63,12 @@ export function CarrinhoProvider({ children }) {
     <CarrinhoContext.Provider
       value={{
         CarrinhoArray,
-        CarrinhoVerde,
         AdicionarAoCarrinho,
         aumentarquantidade,
         dimunuirquantidade,
-        removerCarrinho
+        removerCarrinho,
+        valortotal,
+        CarrinhoVerde,
       }}
     >
       {children}
