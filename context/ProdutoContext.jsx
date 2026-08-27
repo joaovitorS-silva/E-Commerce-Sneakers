@@ -2,14 +2,23 @@ import { useEffect, createContext, useState, useContext } from "react";
 const produtoContext = createContext();
 export function ProdutoProvider({ children }) {
   const [produto, setproduto] = useState([]);
+  const [carregando, setcarregando] = useState(true);
+  const [error, setError] = useState(null);
+  const [sucesso, setSuceeso] = useState(false);
   const UrlApi = "https://dummyjson.com/products/category/smartphones";
   useEffect(() => {
-    fetch(UrlApi)
-      .then(function (respostaAPI) {
-        return respostaAPI.json();
-      })
-      .then(function (resultadoApi) {
-        const NomesUnicos = resultadoApi.products.map((item) => ({
+    async function buscarProdutos() {
+      try {
+        setcarregando(true);
+        setError(null);
+        const respostaAPI = await fetch(UrlApi);
+
+        if (!respostaAPI.ok) {
+          throw new Error("error ao buscar produtos");
+        }
+
+        const resultadoApi = await respostaAPI.json();
+        const nomesUnicos = resultadoApi.products.map((item) => ({
           id: item.id,
           nome: item.title,
           preco: item.price,
@@ -22,11 +31,23 @@ export function ProdutoProvider({ children }) {
           avaliacao: item.rating,
           QrCode: item.QrCode,
         }));
-        setproduto(NomesUnicos)
-      });
+        setproduto(nomesUnicos);
+        setSuceeso(true);
+      } catch (erro) {
+        console.log(erro);
+        setError(erro.message);
+      } finally {
+        setcarregando(false);
+      }
+    }
+    buscarProdutos();
   }, []);
 
-  return <produtoContext.Provider value={{ produto }}>{children}</produtoContext.Provider>;
+  return (
+    <produtoContext.Provider value={{ sucesso, error, carregando, produto }}>
+      {children}
+    </produtoContext.Provider>
+  );
 }
 export function UseProduto() {
   return useContext(produtoContext);

@@ -12,7 +12,7 @@ import { useSearchParams } from "react-router-dom";
 import { UseProduto } from "../../context/ProdutoContext";
 
 function BestSellers() {
-  const { produto } = UseProduto();
+  const { produto ,error,carregando} = UseProduto();
   const [marcarsSelecionada, setmarcarsSelecionadas] = useState([]);
   const [PrecoMax, setPrecoMax] = useState(2000);
   const [botaoView, setbotaoView] = useState(true);
@@ -74,7 +74,12 @@ function BestSellers() {
       </div>
     );
   }
-
+if(carregando){
+  return <p> carregando....</p>
+}
+if(error){
+  return <p>Error:{error}</p>
+}
  
   return (
     <section className="  bg-[#0D0D0D] min-h-screen px-4 py-8 sm:px-6 lg:px-8">
