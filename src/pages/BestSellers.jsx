@@ -7,17 +7,17 @@ import {
   ChevronDown,
   QrCode,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { UseProduto } from "../../context/ProdutoContext";
 
 function BestSellers() {
+  const { produto } = UseProduto();
   const [marcarsSelecionada, setmarcarsSelecionadas] = useState([]);
   const [PrecoMax, setPrecoMax] = useState(2000);
   const [botaoView, setbotaoView] = useState(true);
   const [ArrayMarcas, setArrayMarcas] = useState([]);
-  const [produtos, setprodutos] = useState([]);
   const [searchParams] = useSearchParams();
-  const UrlApi = "https://dummyjson.com/products/category/smartphones";
 
   const busca = searchParams.get("busca") || "";
 
@@ -29,7 +29,7 @@ function BestSellers() {
     );
   }
   function Onfilter() {
-    const ProdutosFiltrados = produtos.filter(
+    const ProdutosFiltrados = produto.filter(
       (produto) =>
         produto.nome.toLowerCase().includes(busca.toLowerCase()) &&
         (marcarsSelecionada.length === 0 ||
@@ -75,43 +75,7 @@ function BestSellers() {
     );
   }
 
-  useEffect(() => {
-    fetch(UrlApi)
-      .then(function (respostaAPI) {
-        if (!respostaAPI.ok){
-          throw new Error("produto nao encontrado");
-          
-        }
-        return respostaAPI.json();
-      })
-      .then(function (resultadoApi) {
-        const NomesCorrretos = resultadoApi.products.map((item) => ({
-          id: item.id,
-          nome: item.title,
-          preco: item.price,
-          desconto: item.discountPercentage,
-          marca: item.brand,
-          imagem: item.thumbnail,
-          precoOriginal: item.price / (1 - item.discountPercentage / 100),
-          descricao: item.description,
-          carroselImg: item.images,
-          avaliacao: item.rating,
-          QrCode : item.QrCode
-
-          //pegar o estoque tambem
-        }));
-        if (!produtos){
-          return  <p>Carregando produtos...</p>
-        }
-        const MarcasBrutas = NomesCorrretos.map((produto) =>
-          produto.marca.toLowerCase(),
-        );
-        const MarcasUnicas = [...new Set(MarcasBrutas)]; // esse tipo de lista "set" faz com que os nomes da listas nao se repitao
-        setprodutos(NomesCorrretos);
-        setArrayMarcas(MarcasUnicas);
-      });
-  }, []);
-
+ 
   return (
     <section className="  bg-[#0D0D0D] min-h-screen px-4 py-8 sm:px-6 lg:px-8">
       <div className=" flex ">
