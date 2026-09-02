@@ -3,24 +3,24 @@ import { ShoppingCart } from "lucide-react";
 const CarrinhoContext = createContext();
 
 export function CarrinhoProvider({ children }) {
-  const [CarrinhoArray, setCarrinho] = useState([]);
-  function AdicionarAoCarrinho(produto) {
+  const [itensCarrinho, setItensCarrinho] = useState([]);
+  function adicionarAoCarrinho(produto) {
     const novoItem = { ...produto, quantidade: 1 };
-    setCarrinho((estadoAnterior) => [...estadoAnterior, novoItem]);
+    setItensCarrinho((estadoAnterior) => [...estadoAnterior, novoItem]);
     
   }
 
-  function aumentarquantidade(id) {
-    setCarrinho((estadoanterior) =>
-      estadoanterior.map((item) =>
+  function aumentarQuantidade(id) {
+    setItensCarrinho((estadoAnterior) =>
+      estadoAnterior.map((item) =>
         item.id === id
           ? { ...item, quantidade: item.quantidade + 1 }
           : { ...item },
       ),
     );
   }
-  function dimunuirquantidade(id) {
-    setCarrinho((estadoAnterior) =>
+  function diminuirQuantidade(id) {
+    setItensCarrinho((estadoAnterior) =>
       estadoAnterior.map((item) =>
         item.id === id
           ? { ...item, quantidade: item.quantidade - 1 }
@@ -31,21 +31,21 @@ export function CarrinhoProvider({ children }) {
       
     );
   }
-  function removerCarrinho (id){
-    setCarrinho((estadoAnterior)=>
+  function removerDoCarrinho(id) {
+    setItensCarrinho((estadoAnterior) =>
     estadoAnterior.filter((item)=> item.id !== id)
     )
   }
   {"nao funcionando agora, talvez irei usar no futuro"}
   function valortotal(){
-    const valortotal = CarrinhoArray.reduce((total,item) =>
+    const valorTotal = itensCarrinho.reduce((total,item) =>
     total + item.preco * item.quantidade,0
     )
-    return valortotal;
+    return valorTotal;
   }
 
-  function CarrinhoVerde(produto) {
-    return CarrinhoArray.some(
+  function indicadorCarrinho(produto) {
+    return itensCarrinho.some(
       (itemDoCarrinho) => itemDoCarrinho.id === produto.id,
     ) ? (
       <ShoppingCart color="#4ade80" />
@@ -53,7 +53,7 @@ export function CarrinhoProvider({ children }) {
       <ShoppingCart
         onClick={(evento) => {
           evento.stopPropagation();
-          AdicionarAoCarrinho(produto);
+          adicionarAoCarrinho(produto);
         }}
       />
     );
@@ -62,13 +62,13 @@ export function CarrinhoProvider({ children }) {
   return (
     <CarrinhoContext.Provider
       value={{
-        CarrinhoArray,
-        AdicionarAoCarrinho,
-        aumentarquantidade,
-        dimunuirquantidade,
-        removerCarrinho,
+        itensCarrinho,
+        adicionarAoCarrinho,
+        aumentarQuantidade,
+        diminuirQuantidade,
+        removerDoCarrinho,
         valortotal,
-        CarrinhoVerde,
+        indicadorCarrinho,
       }}
     >
       {children}
