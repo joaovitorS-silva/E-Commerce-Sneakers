@@ -2,7 +2,7 @@ import { Handbag, Plus, Minus } from "lucide-react";
 import AbaCompra from "./AbaCompra";
 import { useCarrinho } from "../../context/CarrinhoContext";
 function CardCarrinho({ produto }) {
-  const { aumentarquantidade, dimunuirquantidade, removerCarrinho } =
+  const { aumentarQuantidade, diminuirQuantidade, removerDoCarrinho } =
     useCarrinho();
   return (
     <div className="flex">
@@ -19,7 +19,7 @@ function CardCarrinho({ produto }) {
               vendido e entregue por <strong> KaBum!</strong>
             </span>
             <button
-              onClick={() => removerCarrinho(produto.id)}
+              onClick={() => removerDoCarrinho(produto.id)}
               className="rounded-md p-2 text-red-600 border-3 hover:bg-red-600 hover:text-white "
             >
               Remover produto
@@ -38,14 +38,14 @@ function CardCarrinho({ produto }) {
             <div className="flex w-fit items-center gap-6 bg-zinc-800 px-7 py-3">
               <button className=" bg-zinc-800">
                 <Minus
-                  onClick={() => dimunuirquantidade(produto.id)}
+                  onClick={() => diminuirQuantidade(produto.id)}
                   className="text-red-600"
                 />
               </button>
               <span>{produto.quantidade}</span>
               <button>
                 <Plus
-                  onClick={() => aumentarquantidade(produto.id)}
+                  onClick={() => aumentarQuantidade(produto.id)}
                   className="text-yellow-500"
                 />
               </button>

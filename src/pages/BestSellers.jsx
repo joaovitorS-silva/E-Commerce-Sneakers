@@ -16,8 +16,11 @@ function BestSellers() {
   const [marcarsSelecionada, setmarcarsSelecionadas] = useState([]);
   const [PrecoMax, setPrecoMax] = useState(2000);
   const [botaoView, setbotaoView] = useState(true);
-  const [ArrayMarcas, setArrayMarcas] = useState([]);
   const [searchParams] = useSearchParams();
+
+  const ArrayMarcas = [...new Set(produto.map((item) => item.marca?.toLowerCase()).filter(Boolean),
+    ),
+  ];
 
   const busca = searchParams.get("busca") || "";
 
